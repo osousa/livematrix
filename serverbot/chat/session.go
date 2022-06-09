@@ -18,6 +18,7 @@ type Session struct {
 	Alias     *string `db:"alias"`
 	Email     *string `db:"email"`
 	IpAddr    *string `db:"ip"`
+	RoomID    *string
 	Messages  *[]Message
 	mutex     *sync.Mutex
 }
@@ -26,6 +27,7 @@ func NewSession(msgs *[]Message, sess_id []byte, args ...*string) *Session {
 	if len(args) == 0 {
 		return &Session{
 			0,
+			new(string),
 			new(string),
 			new(string),
 			new(string),
@@ -42,6 +44,7 @@ func NewSession(msgs *[]Message, sess_id []byte, args ...*string) *Session {
 			args[2], //Alias
 			args[3], //Email
 			args[4], //IpAddr
+			args[5], //IpAddr
 			msgs,
 			new(sync.Mutex),
 		}

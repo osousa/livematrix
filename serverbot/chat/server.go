@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"golang.org/x/net/websocket"
+	"maunium.net/go/mautrix/format"
+	mid "maunium.net/go/mautrix/id"
 )
 
 // Chat server.
@@ -63,6 +65,13 @@ func (s *Server) Err(err error) {
 	s.errCh <- err
 }
 
+func (s *Server) SendMatrixMessage(c *Client, msg JSONMessage) {
+	var r mid.RoomID
+	r = mid.RoomID(*c.session.RoomID)
+	content := format.RenderMarkdown(msg.Body, true, true)
+	s.Mautrix_client.SendMessage(r, &content)
+}
+
 func (s *Server) sendPastMessages(c *Client) {
 	for _, msg := range c.GetJSONMessages() {
 		c.Write(msg)
@@ -118,8 +127,11 @@ func (s *Server) Listen() {
 			s.clients[c.id] = c
 			log.Println("Now", len(s.clients), "clients connected.")
 			s.sendPastMessages(c)
-			go s.Mautrix_client.CreateRoom()
-			s.Mautrix_client.ch <- c
+			roomid, err := s.Mautrix_client.CreateRoom(c)
+			if err != nil {
+				log.Panicf("Could not create room, abort!")
+			}
+			*c.session.RoomID = string(roomid)
 
 		// del a client
 		case c := <-s.delCh:

@@ -85,19 +85,19 @@ func (b *BotPlexer) Connect(username, password string) {
 }
 
 // lol there's no goroutine running this function... you have to spawn it somewhere duh...
-func (b *BotPlexer) CreateRoom() {
-	select {
-	case client := <-b.ch:
-		b.client.CreateRoom(&mautrix.ReqCreateRoom{
-			Preset:        "public_chat",
-			RoomAliasName: "mao_tseng" + (*client.session.SessionId)[:5],
-			Topic:         "Topic_yeah",
-			Invite:        []id.UserID{id.UserID("@osousa:matrix.org")},
-		})
-	default:
-		log.Errorf("Could not create Matrix room! Abort all!")
+func (b *BotPlexer) CreateRoom(client *Client) (resp mid.RoomID, err error) {
+	response, err := b.client.CreateRoom(&mautrix.ReqCreateRoom{
+		Preset:        "public_chat",
+		RoomAliasName: "mao_tseng" + (*client.session.SessionId)[:5],
+		Topic:         "Topic_yeah",
+		Invite:        []id.UserID{id.UserID("@osousa:matrix.org")},
+	})
 
+	if err != nil {
+		return "", err
 	}
+
+	return response.RoomID, nil
 }
 
 func DoRetry(description string, fn func() (interface{}, error)) (interface{}, error) {

@@ -120,6 +120,7 @@ func (c *Client) listenRead() {
 			} else if err != nil {
 				c.server.Err(err)
 			} else {
+				c.server.SendMatrixMessage(c, msg)
 				c.server.SendAll(&msg)
 			}
 		}
