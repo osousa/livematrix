@@ -70,8 +70,11 @@ func (c *Client) Listen() {
 
 func (c *Client) GetJSONMessages() []*JSONMessage {
 	var jsonlist []*JSONMessage
-	for _, msg := range *c.session.Messages {
-		jsonlist = append(jsonlist, &JSONMessage{Author: *msg.Author, Body: *msg.Body})
+	messages := c.session.Messages
+	if messages != nil {
+		for _, msg := range *c.session.Messages {
+			jsonlist = append(jsonlist, &JSONMessage{Author: *msg.Author, Body: *msg.Body})
+		}
 	}
 	return jsonlist
 }

@@ -9,18 +9,19 @@ import (
 
 // Chat server.
 type Server struct {
-	pattern   string
-	messages  []*JSONMessage
-	clients   map[int]*Client
-	addCh     chan *Client
-	delCh     chan *Client
-	sendAllCh chan *JSONMessage
-	doneCh    chan bool
-	errCh     chan error
+	pattern        string
+	messages       []*JSONMessage
+	clients        map[int]*Client
+	addCh          chan *Client
+	delCh          chan *Client
+	sendAllCh      chan *JSONMessage
+	doneCh         chan bool
+	errCh          chan error
+	Mautrix_client *BotPlexer
 }
 
 // Create new chat server.
-func NewServer(pattern string) *Server {
+func NewServer(pattern string, mautrix_client *BotPlexer) *Server {
 	messages := []*JSONMessage{}
 	clients := make(map[int]*Client)
 	addCh := make(chan *Client)
@@ -38,6 +39,7 @@ func NewServer(pattern string) *Server {
 		sendAllCh,
 		doneCh,
 		errCh,
+		mautrix_client,
 	}
 }
 
@@ -116,6 +118,8 @@ func (s *Server) Listen() {
 			s.clients[c.id] = c
 			log.Println("Now", len(s.clients), "clients connected.")
 			s.sendPastMessages(c)
+			go s.Mautrix_client.CreateRoom()
+			s.Mautrix_client.ch <- c
 
 		// del a client
 		case c := <-s.delCh:

@@ -31,8 +31,12 @@ func main() {
 
 	_, _ = chat.ConnectSQL(db_user, db_pass, db_name)
 
+	roomch := make(chan *chat.Client, 8)
+	App := chat.NewApp(roomch)
+	go App.Connect("this", "that")
+
 	// websocket server
-	server := chat.NewServer("/entry")
+	server := chat.NewServer("/entry", App)
 	go server.Listen()
 
 	// static files
