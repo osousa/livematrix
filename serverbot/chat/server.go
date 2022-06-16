@@ -1,6 +1,7 @@
 package chat
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -45,6 +46,16 @@ func NewServer(pattern string, mautrix_client *BotPlexer) *Server {
 	}
 }
 
+func (s *Server) FindClientByRoomID(roomid mid.RoomID) (Client, error) {
+
+	for _, client := range s.clients {
+		if c := client.GetRoomId(); mid.RoomID(*c) == roomid {
+			return *client, nil
+		}
+	}
+	return Client{}, error(fmt.Errorf("No clients with such RoomID"))
+}
+
 func (s *Server) Add(c *Client) {
 	s.addCh <- c
 }
@@ -68,6 +79,7 @@ func (s *Server) Err(err error) {
 func (s *Server) SendMatrixMessage(c *Client, msg JSONMessage) {
 	var r mid.RoomID
 	r = mid.RoomID(*c.session.RoomID)
+	log.Println(r)
 	content := format.RenderMarkdown(msg.Body, true, true)
 	s.Mautrix_client.SendMessage(r, &content)
 }
@@ -127,11 +139,15 @@ func (s *Server) Listen() {
 			s.clients[c.id] = c
 			log.Println("Now", len(s.clients), "clients connected.")
 			s.sendPastMessages(c)
-			roomid, err := s.Mautrix_client.CreateRoom(c)
-			if err != nil {
-				log.Panicf("Could not create room, abort!")
+			if rid := c.GetRoomId(); rid != nil {
+				s.Mautrix_client.JoinRoomByID(mid.RoomID(*rid))
+			} else {
+				roomid, err := s.Mautrix_client.CreateRoom(c)
+				*c.session.RoomID = string(roomid)
+				if err != nil {
+					log.Panicf("Could not create room, abort!")
+				}
 			}
-			*c.session.RoomID = string(roomid)
 
 		// del a client
 		case c := <-s.delCh:
@@ -140,9 +156,16 @@ func (s *Server) Listen() {
 
 		// broadcast message for all clients
 		case msg := <-s.sendAllCh:
-			log.Println("Send all:", msg)
 			s.messages = append(s.messages, msg)
-			s.sendAll(msg)
+			//s.sendAll(msg)
+
+		case matrix_evt := <-s.Mautrix_client.Ch:
+			client, err := s.FindClientByRoomID(matrix_evt.RoomID)
+			if err == nil {
+				log.Println()
+				jsonmsg := NewJSONMessage(matrix_evt.Content.Raw["body"].(string), "1")
+				client.Write(jsonmsg)
+			}
 
 		case err := <-s.errCh:
 			log.Println("Error:", err.Error())

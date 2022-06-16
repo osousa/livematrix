@@ -44,6 +44,10 @@ func NewClient(ws *websocket.Conn, server *Server, token *http.Cookie) *Client {
 	return &Client{maxId, ws, server, ch, doneCh, session}
 }
 
+func (c *Client) GetRoomId() *string {
+	return c.session.GetRoomId()
+}
+
 func (c *Client) Conn() *websocket.Conn {
 	return c.ws
 }
@@ -121,7 +125,6 @@ func (c *Client) listenRead() {
 				c.server.Err(err)
 			} else {
 				c.server.SendMatrixMessage(c, msg)
-				c.server.SendAll(&msg)
 			}
 		}
 	}

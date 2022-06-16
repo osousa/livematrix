@@ -31,8 +31,7 @@ func main() {
 
 	_, _ = chat.ConnectSQL(db_user, db_pass, db_name)
 
-	roomch := make(chan *chat.Client, 8)
-	App := chat.NewApp(roomch)
+	App := chat.NewApp()
 	go App.Connect("this", "that")
 
 	// websocket server

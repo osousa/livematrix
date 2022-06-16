@@ -18,7 +18,7 @@ type Session struct {
 	Alias     *string `db:"alias"`
 	Email     *string `db:"email"`
 	IpAddr    *string `db:"ip"`
-	RoomID    *string
+	RoomID    *string `db:"RoomID"`
 	Messages  *[]Message
 	mutex     *sync.Mutex
 }
@@ -50,6 +50,10 @@ func NewSession(msgs *[]Message, sess_id []byte, args ...*string) *Session {
 		}
 	}
 	return nil
+}
+
+func (e *Session) GetRoomId() *string {
+	return e.RoomID
 }
 
 func (e *Session) GetById(id int) error {

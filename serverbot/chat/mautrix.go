@@ -24,24 +24,24 @@ type BotPlexer struct {
 
 	// Most recent send to room.
 	mostRecentSend map[mid.RoomID]time.Time
-	ch             chan *Client
+	Ch             chan *mevent.Event
 }
 
 var App BotPlexer
 var username string
 
-func NewApp(ch chan *Client) *BotPlexer {
+func NewApp() *BotPlexer {
 	return &BotPlexer{
 		nil,
 		1,
 		nil,
 		make(map[mid.RoomID]time.Time),
-		ch,
+		make(chan *mevent.Event, 8),
 	}
 }
 
 func (b *BotPlexer) Connect(username, password string) {
-	b.timewait = 1
+	b.timewait = 30
 	b.mostRecentSend = make(map[mid.RoomID]time.Time)
 	username = mid.UserID("@osousa:privex.io").String()
 	password = "6VrdT8DCsa1xDvyaOghxT"
@@ -84,6 +84,12 @@ func (b *BotPlexer) Connect(username, password string) {
 	}
 }
 
+func (b *BotPlexer) GetMessages(roomid mid.RoomID, offset int) []*JSONMessage {
+	//b.client.Messages
+	//TODO
+	return nil
+}
+
 // lol there's no goroutine running this function... you have to spawn it somewhere duh...
 func (b *BotPlexer) CreateRoom(client *Client) (resp mid.RoomID, err error) {
 	response, err := b.client.CreateRoom(&mautrix.ReqCreateRoom{
@@ -98,6 +104,10 @@ func (b *BotPlexer) CreateRoom(client *Client) (resp mid.RoomID, err error) {
 	}
 
 	return response.RoomID, nil
+}
+
+func (b *BotPlexer) JoinRoomByID(rid mid.RoomID) (*mautrix.RespJoinRoom, error) {
+	return b.client.JoinRoomByID(rid)
 }
 
 func DoRetry(description string, fn func() (interface{}, error)) (interface{}, error) {
@@ -130,6 +140,8 @@ func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Even
 		return
 	} else {
 		log.Infof("Event %s is from someone else.", event.ID)
+		log.Infof("Event room: %s ", event.RoomID)
+		b.Ch <- event
 	}
 
 	//if !b.configuration.RespondToGroups && len(App.stateStore.GetRoomMembers(event.RoomID)) != 2 {
@@ -145,6 +157,7 @@ func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Even
 	b.mostRecentSend[event.RoomID] = now
 
 	content := format.RenderMarkdown("Test Message goes here...", true, true)
+	log.Debugf(string(event.RoomID))
 	b.SendMessage(event.RoomID, &content)
 }
 

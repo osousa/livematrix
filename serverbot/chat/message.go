@@ -11,6 +11,10 @@ func (self *JSONMessage) String() string {
 	return fmt.Sprint(self.Author) + " says " + self.Body
 }
 
+func NewJSONMessage(message, author string) *JSONMessage {
+	return &JSONMessage{author, message}
+}
+
 type Message struct {
 	Author *string `db:"author"`
 	Body   *string `db:"body"`
