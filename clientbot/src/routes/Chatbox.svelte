@@ -7,39 +7,31 @@
     import Session from "./Session.svelte"
     import { Socket } from "./websockets"
     
-    let socket:Socket; 
     export let chatboxOpen:boolean;
     const dispatch = createEventDispatcher();
+    let socket:Socket;  
     let MessagesComponent:SvelteComponent; 
     let msg:string = "";
     let node:Element;
-    let session:boolean = false;  
-
-	async function NewSession() {
-		const res = await fetch(`/tutorial/random-number`);
-		const text = await res.text();
-
-		if (res.ok) {
-			return text;
-		} else {
-			throw new Error(text);
-		}
-	}
-
-    onMount( async () => {
-        //fetch('http://localhost:8000/session',{ method:"GET", mode:"no-cors", credentials: "include" }).then(res => console.log(res)).catch(err=> console.log(err))
-        //socket = new Socket({url:"ws://localhost:8000/entry", store:messenger, callback: [MessagesComponent.scrollDown]});
-    });
+    let session:any 
+    let scrolld = async () => {
+        await tick().then(MessagesComponent.scrollDown);
+        console.log("works....");
+    }
+    let watchSession = () => {
+        if(session && !socket)
+            socket = new Socket({url:"ws://localhost:8000/entry", store:messenger, callback: [scrolld]});
+        else
+            console.log("Socket either connected or no session yet")
+    } 
 
     const addMsg = async () => {
         if (msg==="")
             return
         let message:string = JSON.stringify({author:"1", body: msg});
         messenger.update((messenger : any) => [...messenger, JSON.parse(message)]);
-        console.log(message)
         socket.sendData(message)
-        await tick();
-        MessagesComponent.scrollDown();
+        await tick().then(scrolld);
         dispatch("newmessage");
         msg = "";
     }
@@ -60,6 +52,11 @@
             variable: "empty" 
         });
     }
+    onMount(() => {
+        session = document.cookie.match(/^(.*;)?\s*session_id\s*=\s*[^;]+(.*)?$/)
+        console.log(session)
+        watchSession()
+    });
 
     $: chatboxOpen, watchMe(node);
 
@@ -74,7 +71,7 @@
       </div>
       <div class="flex flex-col flex-auto flex-shrink-0 rounded-b-2xl bg-gray-100 h-full px-4 pb-4">
           {#if !session}
-            <Session on:sessiondone={()=> {session=!session}} />
+            <Session on:sessiondone={()=> (session = !session) && watchSession() } />
           {:else}
             <Messages bind:this={MessagesComponent} /> 
             <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
@@ -111,7 +108,7 @@
 
 .msgbox{
     bottom:0;
-    right: 45px;
+    right: 20px;
 }
 
 .chatHidden{
