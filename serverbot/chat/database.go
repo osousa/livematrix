@@ -19,6 +19,7 @@ type Database interface {
 	GetById(interface{}, int) error
 	GetByPk(a, b interface{}, c string) error
 	GetList(interface{}, *[]interface{}, int) error
+	InsertRow(interface{}) error
 	UpdateRow(interface{}) error
 }
 

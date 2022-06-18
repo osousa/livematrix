@@ -16,7 +16,8 @@ import (
 )
 
 type BotPlexer struct {
-	client *mautrix.Client
+	username *string
+	client   *mautrix.Client
 	//configuration Configuration
 	timewait   float64
 	olmMachine *mcrypto.OlmMachine
@@ -32,6 +33,7 @@ var username string
 
 func NewApp() *BotPlexer {
 	return &BotPlexer{
+		new(string),
 		nil,
 		1,
 		nil,
@@ -44,6 +46,7 @@ func (b *BotPlexer) Connect(username, password string) {
 	b.timewait = 30
 	b.mostRecentSend = make(map[mid.RoomID]time.Time)
 	username = mid.UserID("@osousa:privex.io").String()
+	*b.username = username
 	password = "6VrdT8DCsa1xDvyaOghxT"
 
 	log.Infof("Logging in %s", username)
@@ -94,8 +97,8 @@ func (b *BotPlexer) GetMessages(roomid mid.RoomID, offset int) []*JSONMessage {
 func (b *BotPlexer) CreateRoom(client *Client) (resp mid.RoomID, err error) {
 	response, err := b.client.CreateRoom(&mautrix.ReqCreateRoom{
 		Preset:        "public_chat",
-		RoomAliasName: "mao_tseng" + (*client.session.SessionId)[:5],
-		Topic:         "Topic_yeah",
+		RoomAliasName: (*client.session.Alias) + "_" + (*client.session.SessionId)[:6],
+		Topic:         "livechat",
 		Invite:        []id.UserID{id.UserID("@osousa:matrix.org")},
 	})
 
@@ -135,7 +138,8 @@ func DoRetry(description string, fn func() (interface{}, error)) (interface{}, e
 	return nil, err
 }
 func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Event) {
-	if event.Sender.String() == username {
+	log.Warning(*b.username)
+	if event.Sender.String() == *b.username {
 		log.Infof("Event %s is from us, so not going to respond.", event.ID)
 		return
 	} else {

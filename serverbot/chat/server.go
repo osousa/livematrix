@@ -139,11 +139,13 @@ func (s *Server) Listen() {
 			s.clients[c.id] = c
 			log.Println("Now", len(s.clients), "clients connected.")
 			s.sendPastMessages(c)
-			if rid := c.GetRoomId(); rid != nil {
+			if rid := c.GetRoomId(); *rid != "" {
+				log.Println(*rid != "")
 				s.Mautrix_client.JoinRoomByID(mid.RoomID(*rid))
 			} else {
 				roomid, err := s.Mautrix_client.CreateRoom(c)
 				*c.session.RoomID = string(roomid)
+				DB.UpdateRow(c.session)
 				if err != nil {
 					log.Panicf("Could not create room, abort!")
 				}
@@ -159,11 +161,12 @@ func (s *Server) Listen() {
 			s.messages = append(s.messages, msg)
 			//s.sendAll(msg)
 
+		// listens to matrix events
 		case matrix_evt := <-s.Mautrix_client.Ch:
 			client, err := s.FindClientByRoomID(matrix_evt.RoomID)
 			if err == nil {
 				log.Println()
-				jsonmsg := NewJSONMessage(matrix_evt.Content.Raw["body"].(string), "1")
+				jsonmsg := NewJSONMessage(matrix_evt.Content.Raw["body"].(string), "0")
 				client.Write(jsonmsg)
 			}
 

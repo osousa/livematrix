@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -91,9 +92,23 @@ func (s *Session) createCookie(name string) *http.Cookie {
 }
 
 func (s *Session) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, "Please pass the data as URL form encoded", http.StatusBadRequest)
+		return
+	}
+	log.Println(r.RemoteAddr)
 	tokenCookie, err := r.Cookie("session_id")
 	if err != nil {
-		http.SetCookie(w, s.createCookie("session_id"))
+		name := r.PostForm.Get("name")
+		surname := r.PostForm.Get("surname")
+		*s.IpAddr = r.RemoteAddr[:strings.LastIndex(r.RemoteAddr, ":")]
+		*s.Email = r.PostForm.Get("email")
+		*s.Alias = name + "_" + surname
+		cookie := s.createCookie("session_id")
+		http.SetCookie(w, cookie)
+		*s.SessionId = cookie.Value
+		DB.InsertRow(s)
 	} else {
 		log.Println(tokenCookie.Value)
 	}
