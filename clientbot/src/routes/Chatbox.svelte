@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher, SvelteComponent } from 'svelte';
-	import { messenger } from "./stores.js";
+	import { messenger, unread } from "./stores.js";
     import { tick } from 'svelte';
     import { onMount } from 'svelte';
     import Messages from "./Messages.svelte"
@@ -14,13 +14,30 @@
     let msg:string = "";
     let node:Element;
     let session:any 
+	let countValue:number;
+
+	unread.subscribe( (value:number) => {
+		countValue = value;
+	});
+
+    let notify = async () => {
+        await tick().then(()=>{
+            if(chatboxOpen){
+                unread.set(0)
+            }else{
+                unread.update((n:number) => n + 1);
+            }
+            console.log(`unread: ${countValue}`)
+        })
+    }
+
     let scrolld = async () => {
         await tick().then(MessagesComponent.scrollDown);
         console.log("works....");
     }
     let watchSession = () => {
         if(session && !socket)
-            socket = new Socket({url:"ws://localhost:8000/entry", store:messenger, callback: [scrolld]});
+            socket = new Socket({url:`ws://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_HOST_PORT}/entry`, store:messenger, callback: [scrolld, notify]});
         else
             console.log("Socket either connected or no session yet")
     } 
@@ -44,6 +61,7 @@
         if(chatboxOpen){
             node.classList.add('grow');
             node.classList.remove('chatHidden');
+            unread.set(0);
         }else{
             node.classList.remove('grow');
             node.classList.add('chatHidden');
@@ -52,6 +70,7 @@
             variable: "empty" 
         });
     }
+
     onMount(() => {
         session = document.cookie.match(/^(.*;)?\s*session_id\s*=\s*[^;]+(.*)?$/)
         console.log(session)

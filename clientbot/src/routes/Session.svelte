@@ -19,7 +19,7 @@
 
     let session = async (etc:any) => {
         const formBody = Object.keys(postData).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(postData[key as keyof Data])).join('&');
-        fetch('http://localhost:8000/session',{ 
+        fetch(`http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_HOST_PORT}/session`,{ 
             method:"POST", 
             mode:"no-cors", 
             credentials: "include",

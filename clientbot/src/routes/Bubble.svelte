@@ -1,10 +1,18 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import { unread } from "./stores.js"; 
+
+	let countValue:number;
+	unread.subscribe( (value:number) => {
+		countValue = value;
+	});
     const dispatch = createEventDispatcher();
     let bubble:Element;
+    let minibubble:Element;
     let bubbleicon:Element;
     let toggleShow = () => {
         ['icon'].map((val)=> bubbleicon.classList.toggle(val));
+        minibubble ? ['icon'].map((val)=> minibubble.classList.toggle(val)):null;
         ['buuubble'].map((val)=> bubble.classList.toggle(val));
         setTimeout(()=>{ 
             ['rounded-full','rounded-t-2xl'].map((val)=> bubble.classList.toggle(val));
@@ -15,6 +23,11 @@
 
 <div class="max-w-sm flex flex-col flex-auto h-full p-6">
     <div bind:this="{bubble}" on:click={toggleShow} class="bubble grid grid-cols-5 gap-3 bg-slate-200 p-4 rounded-full place-items-center">
+        {#if countValue}
+            <div bind:this="{minibubble}" class="bg-red-600 p-1 px-2 rounded-full place-items-center text-xs font-semibold  text-white absolute top-0 right-0" >
+                {countValue}
+            </div>
+        {/if}
         <div bind:this={bubbleicon} class="bubbleicon" style="">
             <img alt="bubble_icon" src="/images/bubbleicon.svg"/> 
         </div>
