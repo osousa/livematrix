@@ -28,11 +28,13 @@ func main() {
 	db_pass := os.Getenv("DATABASE_PASSWORD")
 	db_name := os.Getenv("DATABASE_NAME")
 	db_user := os.Getenv("DATABASE_USER")
+	matrix_user := os.Getenv("MATRIX_USERNAME")
+	matrix_pass := os.Getenv("MATRIX_PASSWORD")
 
 	_, _ = chat.ConnectSQL(db_user, db_pass, db_name)
 
 	App := chat.NewApp()
-	go App.Connect("this", "that")
+	go App.Connect(matrix_user, matrix_pass)
 
 	// websocket server
 	server := chat.NewServer("/entry", App)

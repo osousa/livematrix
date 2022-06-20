@@ -10,22 +10,19 @@ import (
 	"maunium.net/go/mautrix"
 	mcrypto "maunium.net/go/mautrix/crypto"
 	mevent "maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/format"
 	"maunium.net/go/mautrix/id"
 	mid "maunium.net/go/mautrix/id"
 )
 
 type BotPlexer struct {
-	username *string
-	client   *mautrix.Client
-	//configuration Configuration
-	timewait   float64
-	olmMachine *mcrypto.OlmMachine
-	//stateStore *store.StateStore
-
-	// Most recent send to room.
+	username       *string
+	password       *string // only kept until connect
+	client         *mautrix.Client
+	timewait       float64
+	olmMachine     *mcrypto.OlmMachine
 	mostRecentSend map[mid.RoomID]time.Time
 	Ch             chan *mevent.Event
+	//stateStore *store.StateStore
 }
 
 var App BotPlexer
@@ -33,6 +30,7 @@ var username string
 
 func NewApp() *BotPlexer {
 	return &BotPlexer{
+		new(string),
 		new(string),
 		nil,
 		1,
@@ -42,12 +40,12 @@ func NewApp() *BotPlexer {
 	}
 }
 
-func (b *BotPlexer) Connect(username, password string) {
+func (b *BotPlexer) Connect(uname, passwd string) {
 	b.timewait = 30
 	b.mostRecentSend = make(map[mid.RoomID]time.Time)
-	username = mid.UserID("@osousa:privex.io").String()
-	*b.username = username
-	password = "6VrdT8DCsa1xDvyaOghxT"
+	username = mid.UserID(uname).String()
+	*b.username = uname
+	*b.password = passwd
 
 	log.Infof("Logging in %s", username)
 
@@ -63,7 +61,7 @@ func (b *BotPlexer) Connect(username, password string) {
 				Type: mautrix.IdentifierTypeUser,
 				User: username,
 			},
-			Password:                 password,
+			Password:                 *b.password,
 			InitialDeviceDisplayName: "vacation responder",
 			//DeviceID:                 deviceID,
 			StoreCredentials: true,
@@ -147,22 +145,12 @@ func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Even
 		log.Infof("Event room: %s ", event.RoomID)
 		b.Ch <- event
 	}
-
-	//if !b.configuration.RespondToGroups && len(App.stateStore.GetRoomMembers(event.RoomID)) != 2 {
-	//	log.Infof("Event %s is not from in a DM, so not going to respond.", event.ID)
-	//	return
-	//}
-
 	now := time.Now()
 	if now.Sub(b.mostRecentSend[event.RoomID]).Minutes() < b.timewait {
 		log.Infof("Already sent a vacation message to %s in the past %f minutes.", event.RoomID, b.timewait)
 		return
 	}
 	b.mostRecentSend[event.RoomID] = now
-
-	content := format.RenderMarkdown("Test Message goes here...", true, true)
-	log.Debugf(string(event.RoomID))
-	b.SendMessage(event.RoomID, &content)
 }
 
 func (b *BotPlexer) SendMessage(roomId mid.RoomID, content *mevent.MessageEventContent) (resp *mautrix.RespSendEvent, err error) {

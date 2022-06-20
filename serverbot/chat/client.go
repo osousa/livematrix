@@ -83,7 +83,6 @@ func (c *Client) GetJSONMessages() []*JSONMessage {
 	return jsonlist
 }
 
-// Listen write request via chanel
 func (c *Client) listenWrite() {
 	log.Println("Listening write to client")
 	for {
@@ -91,7 +90,6 @@ func (c *Client) listenWrite() {
 
 		// send message to the client
 		case msg := <-c.ch:
-			log.Println("Send:", msg)
 			websocket.JSON.Send(c.ws, msg)
 
 		// receive done request
@@ -103,7 +101,6 @@ func (c *Client) listenWrite() {
 	}
 }
 
-// Listen read request via chanel
 func (c *Client) listenRead() {
 	log.Println("Listening read from client")
 	for {

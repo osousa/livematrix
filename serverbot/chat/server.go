@@ -144,10 +144,11 @@ func (s *Server) Listen() {
 				s.Mautrix_client.JoinRoomByID(mid.RoomID(*rid))
 			} else {
 				roomid, err := s.Mautrix_client.CreateRoom(c)
-				*c.session.RoomID = string(roomid)
-				DB.UpdateRow(c.session)
 				if err != nil {
-					log.Panicf("Could not create room, abort!")
+					log.Println("Could not create room, abort!")
+				} else {
+					*c.session.RoomID = string(roomid)
+					DB.UpdateRow(c.session)
 				}
 			}
 
