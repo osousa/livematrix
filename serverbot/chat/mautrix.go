@@ -91,7 +91,7 @@ func (b *BotPlexer) GetMessages(roomid mid.RoomID, offset int) []*JSONMessage {
 	return nil
 }
 
-// lol there's no goroutine running this function... you have to spawn it somewhere duh...
+// There's no goroutine running this function... you have to spawn it somewhere
 func (b *BotPlexer) CreateRoom(client *Client) (resp mid.RoomID, err error) {
 	response, err := b.client.CreateRoom(&mautrix.ReqCreateRoom{
 		Preset:        "public_chat",
@@ -114,20 +114,18 @@ func (b *BotPlexer) JoinRoomByID(rid mid.RoomID) (*mautrix.RespJoinRoom, error) 
 func DoRetry(description string, fn func() (interface{}, error)) (interface{}, error) {
 	var err error
 	b := retry.NewFibonacci(1 * time.Second)
-
 	b = retry.WithMaxRetries(5, b)
 	for {
 		log.Info("trying: ", description)
 		var val interface{}
 		val, err = fn()
 		if err == nil {
-			log.Info(description, " succeeded")
+			// Success
 			return val, nil
 		}
 		nextDuration, stop := b.Next()
-		log.Debugf("  %s failed. Retrying in %f seconds...", description, nextDuration.Seconds())
+		// Retrying...
 		if stop {
-			log.Debugf("  %s failed. Retry limit reached. Will not retry.", description)
 			err = errors.New("%s failed. Retry limit reached. Will not retry.")
 			break
 		}
@@ -136,18 +134,15 @@ func DoRetry(description string, fn func() (interface{}, error)) (interface{}, e
 	return nil, err
 }
 func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Event) {
-	log.Warning(*b.username)
+	// If event is from ourselves, ignore
 	if event.Sender.String() == *b.username {
-		log.Infof("Event %s is from us, so not going to respond.", event.ID)
 		return
 	} else {
-		log.Infof("Event %s is from someone else.", event.ID)
-		log.Infof("Event room: %s ", event.RoomID)
 		b.Ch <- event
 	}
 	now := time.Now()
 	if now.Sub(b.mostRecentSend[event.RoomID]).Minutes() < b.timewait {
-		log.Infof("Already sent a vacation message to %s in the past %f minutes.", event.RoomID, b.timewait)
+		log.Infof("Already sent greetings message to %s in the past %f minutes.", event.RoomID, b.timewait)
 		return
 	}
 	b.mostRecentSend[event.RoomID] = now
@@ -156,11 +151,10 @@ func (b *BotPlexer) HandleMessage(source mautrix.EventSource, event *mevent.Even
 func (b *BotPlexer) SendMessage(roomId mid.RoomID, content *mevent.MessageEventContent) (resp *mautrix.RespSendEvent, err error) {
 	eventContent := &mevent.Content{Parsed: content}
 	r, err := DoRetry(fmt.Sprintf("send message to %s", roomId), func() (interface{}, error) {
-		log.Debugf("Sending unencrypted event to %s", roomId)
+		//Sending unencrypted event
 		return b.client.SendMessageEvent(roomId, mevent.EventMessage, eventContent)
 	})
 	if err != nil {
-		// give up
 		log.Errorf("Failed to send message to %s: %s", roomId, err)
 		return nil, err
 	}

@@ -1,6 +1,7 @@
 package chat
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -8,6 +9,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -21,6 +23,7 @@ type Database interface {
 	GetList(interface{}, *[]interface{}, int) error
 	InsertRow(interface{}) error
 	UpdateRow(interface{}) error
+	RawQuery(string) error
 }
 
 type SQLdatabase struct {
@@ -45,10 +48,25 @@ func (d SQLdatabase) GetState() bool {
 // be referenced on the  .ENV file followed by the password in order to connect
 // otherwise a panic occurs. There is no need to defer Disconnect.
 func ConnectSQL(name, password, database string) (Database, error) {
-	dbase, err := sql.Open("mysql", name+":"+password+"@tcp(127.0.0.1:3306)/"+database)
+	dbase, err := sql.Open("mysql", name+":"+password+"@tcp(127.0.0.1:3306)/")
 	if err != nil {
-		panic("Unable to connect to db")
+		log.Printf("Error %s connecting to mysql\n", err)
+		return nil, err
 	}
+	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelfunc()
+	_, err = dbase.ExecContext(ctx, "CREATE DATABASE IF NOT EXISTS "+database)
+	if err != nil {
+		log.Printf("Error %s when creating DB\n", err)
+		return nil, err
+	}
+	dbase.Close()
+	dbase, err = sql.Open("mysql", name+":"+password+"@tcp(127.0.0.1:3306)/"+database)
+	if err != nil {
+		log.Printf("Error %s using DB\n", err)
+		return nil, err
+	}
+
 	db := NewDatabase(dbase, name)
 	DB = db
 	return db, nil
@@ -335,6 +353,28 @@ func (db *SQLdatabase) UpdateRow(structure interface{}) error {
 	if rows != 1 {
 		return errors.New(fmt.Sprint("expected single row affected, got: ", rows))
 	}
+	return nil
+}
+
+// This should be used in the cnotext of database manipulation queries, such as
+// creating tables, droping tables, creating procedures,etc. Should not be used
+// to query the database itself,and it only works on the context of the present
+// in use database
+func (db *SQLdatabase) RawQuery(query string) error {
+	log.Println(query)
+	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelfunc()
+	res, err := db.db.ExecContext(ctx, query)
+	if err != nil {
+		log.Printf("Error %s executing raw query", err)
+		return err
+	}
+	rows, err := res.RowsAffected()
+	if err != nil {
+		log.Printf("Error %s when getting rows affected", err)
+		return err
+	}
+	log.Printf("Rows affected: %d", rows)
 	return nil
 }
 

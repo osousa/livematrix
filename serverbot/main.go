@@ -31,7 +31,21 @@ func main() {
 	matrix_user := os.Getenv("MATRIX_USERNAME")
 	matrix_pass := os.Getenv("MATRIX_PASSWORD")
 
-	_, _ = chat.ConnectSQL(db_user, db_pass, db_name)
+	db, err := chat.ConnectSQL(db_user, db_pass, db_name)
+
+	// If one wishes, they can move this to another file, but not database.go
+	query := `CREATE TABLE if not exists Session(
+			  id int(11) NOT NULL AUTO_INCREMENT,
+			  session varchar(100) NOT NULL,
+			  expirity varchar(100) DEFAULT NULL,
+			  alias varchar(100) DEFAULT NULL,
+			  email varchar(100) DEFAULT NULL,
+			  ip varchar(100) DEFAULT NULL,
+			  RoomID varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+			  PRIMARY KEY (id)
+			) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;`
+
+	db.RawQuery(query)
 
 	App := chat.NewApp()
 	go App.Connect(matrix_user, matrix_pass)
