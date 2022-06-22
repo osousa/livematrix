@@ -1,0 +1,6 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/livematrix/client.git
+[submodule "server"]
+	path = server
+	url = https://github.com/livematrix/server.git
