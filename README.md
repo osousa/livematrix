@@ -11,8 +11,11 @@ An oversimplified embedded live chat widget that allows your website's visitors 
 
 # 📺 Working demo 
 
-## Visitor's first interaction, creates session:
+### Visitor's first interaction, creates session:
 ![demo_1](https://github.com/livematrix/.github/blob/main/images/demo01.gif?raw=true)
+
+### Chatting with visitor, through Element client:
+![demo_2](https://github.com/livematrix/.github/blob/main/images/demo02.gif?raw=true)
 
 
 
@@ -80,4 +83,8 @@ DO NOT use your personal account's password and username. CREATE a new one for t
 
 
 🔥 Just fire up the server and you're done. Your live chat is working. 
+
+
+Incomplete readmen... 
+
 
