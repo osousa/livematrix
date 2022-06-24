@@ -77,17 +77,17 @@ You must create a Matrix user specifically to mediate conversations with your vi
 
 ```python
 # MySQL/MariaDB credentials
-DATABASE_NAME=plexerbot
-DATABASE_USER=osousa
+DATABASE_NAME=livematrix
+DATABASE_USER=password
 DATABASE_PASSWORD=password
 
 # Your personal Matrix.org account
 MATRIX_RECIPIENT=@osousa:matrix.org
 
 # Account used ONLY for mediation
-MATRIX_SERVER=matrix.privex.io
-MATRIX_USERNAME=@osousa:privex.io
-MATRIX_PASSWORD=6VrdT8DCsa1xDvyaOghxT
+MATRIX_SERVER=matrix.org
+MATRIX_USERNAME=@livematrix:matrix.org
+MATRIX_PASSWORD=password
 
 # Leave empty if you want it to connect
 # to every available interfaces. 
