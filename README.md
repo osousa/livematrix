@@ -75,7 +75,7 @@ On the repo's folder **"_server"**  (Not the submodule), download the binary ser
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
-```terminal
+```sh
 DATABASE_NAME=livechat
 DATABASE_USER=osousa
 DATABASE_PASSWORD=password
