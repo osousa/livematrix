@@ -31,7 +31,7 @@ The next best bet is for you to create a new Matrix.org account and all visitor'
 ##  :computer: client
 
 Built using Svelte, so everything goes in one nice bundle, its fast and awesome to embed. No need for external libraries or big framework.js files.
-Just import into your website's structure one JS and on CSS files. 
+Just import into your website's structure one JS and one CSS files. 
 
 To embed the widget is very straightforward, copy the following and paste on your index.html (or other):
 
@@ -43,19 +43,26 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's "client" folder (Not the submodule), download the config.json file, and put it inside a /static/config.json folder relative to your index.html:
+On the repo's "client" folder (Not the submodule), download the files, nd put it inside folders relative to your index.html, like this:
 
 ```
 root/ .
       |_ index.html
       |_ static/.  
-                |_ config.json 
-```             
+         |_ config.json 
+         |_ images/
+         |   |_ bubbleicon.svg
+         |_ js   
+         |   |_ index-xxxxxxx.js
+         |_ css
+             |_ index-xxxxxxx.css
+
+```
 
 Edit the config.json to set your server's addresses and ports;
 
 #### ❔ 
-If you don't wish to compile things yourself using Svelte and Vite's .env variables, this is the way. 
+If you can't use this directories' sctructure, change the corresponding paths on the Svelte's App. 
 
 
 
