@@ -6,7 +6,7 @@ Live chat with your website's visitors, using your Matrix.org client to communic
 
 # 📌 What is livechat?
 
-An oversimplified embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix.org account.
+An *oversimplified* embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix.org account.
 
 
 ## 📺 Working demo 
