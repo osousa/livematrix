@@ -39,8 +39,8 @@ Just import into your website's structure one JS and one CSS files.
 To embed the widget is very straightforward, copy the following and paste on your index.html (or other):
 
 ```
-    <script type="module" crossorigin src="/static/js/index-03328893.js"></script>
-    <link rel="stylesheet" href="/static/css/index-0e3c6aef.css">
+    <script type="module" crossorigin src="/static/js/index-e73fa2f7.js"></script>
+    <link rel="stylesheet" href="/static/css/index-de5f8656.css">
     <div id="app" class="tw-fixed"></div>
 ```
 
