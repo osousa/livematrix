@@ -43,7 +43,7 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's "client" folder (Not the submodule), download the files, nd put it inside folders relative to your index.html, like this:
+On the repo's "client" folder (Not the submodule), download the files, and put it inside folders relative to your index.html, like this:
 
 ```
 root/ .
@@ -62,7 +62,7 @@ root/ .
 Edit the config.json to set your server's addresses and ports;
 
 #### ❔ 
-If you can't use this directories' sctructure, change the corresponding paths on the Svelte's App. 
+If you can't use this directories' sctructure, change the corresponding paths on the Svelte's App and compile it again;
 
 
 
@@ -90,9 +90,12 @@ SERVER_PORT=8000
 DO NOT use your personal account's password and username. CREATE a new one for this purpose only.
 
 
-🔥 Just fire up the server and you're done. Your live chat is working. 
+🔥 Just fire up the server and you're done. Your live chat is working:
+
+```
+$ chmod 755 livematrix
+$ ./livematrix &
+```
 
 
-Incomplete readmen... 
-
-
+Incomplete README
