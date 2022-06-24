@@ -76,7 +76,7 @@ On the repo's folder **"_server"**  (Not the submodule), download the binary ser
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
 ```python
-DATABASE_NAME=livechat
+DATABASE_NAME=plexerbot
 DATABASE_USER=osousa
 DATABASE_PASSWORD=password
 
@@ -84,9 +84,13 @@ DATABASE_PASSWORD=password
 MATRIX_RECIPIENT=@osousa:matrix.org
 
 # Account used ONLY for mediation
+MATRIX_SERVER=matrix.privex.io
 MATRIX_USERNAME=@osousa:privex.io
-MATRIX_PASSWORD=password
+MATRIX_PASSWORD=6VrdT8DCsa1xDvyaOghxT
 
+# Leave empty if you want it to connect
+# to every available interfaces. 
+SERVER_IFACE="127.0.0.1"
 SERVER_PORT=8000
 ```
 
