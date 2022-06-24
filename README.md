@@ -90,8 +90,9 @@ MATRIX_PASSWORD=password
 SERVER_PORT=8000
 ```
 
+```
 - DO NOT use your personal account's password and username. CREATE a new one for this purpose only - 
-
+```
 
 🔥 Just fire up the server and you're done. Your live chat is working:
 
