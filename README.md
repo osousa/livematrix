@@ -64,9 +64,9 @@ root/ .
 
 Edit the config.json to set your server's addresses and ports;
 
-#### ❔ 
+#### ❔
 If you can't use this directories' sctructure, change the corresponding paths on the Svelte's App and compile it again;
-
+Follow the **submodule** named client@xxxx
 
 
 ## 🛰️ Server
@@ -100,6 +100,9 @@ $ chmod 755 livematrix
 $ ./livematrix &
 ```
 
+#### ❔ 
+If you do not want to use the compiled binary "livechat" you can compile your own. 
+Follow the **submodule** named server@xxxx
 
 
 
