@@ -1,0 +1,15 @@
+{ 
+    "config" : {
+        "server" : {
+            "proto": "http", 
+            "host": "localhost", 
+            "port": "8000"
+        }, 
+        "websocket": {
+            "proto": "ws",
+            "host": "localhost", 
+            "port": "8000"
+        }
+    }
+}
+
