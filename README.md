@@ -46,7 +46,7 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's "client" folder (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
+On the repo's folder **"_client"**  (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
 
 ```
 root/ .
@@ -71,7 +71,7 @@ If you can't use this directories' sctructure, change the corresponding paths on
 
 ## 🛰️ Server
 
-On the "server" folder (Not the submodule), download the binary server and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder **"_server"**  (Not the submodule), download the binary server and the .env file; Edit the .env file and add your personal details. 
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
