@@ -112,5 +112,4 @@ Follow the **submodule** named server@xxxx
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
 - No unit tests? In my defence, i have very little spare time
 - Encryption? Nope, you can implement it if you want to. It shouldn't be hard.
-- Use at your own risk
 
