@@ -51,13 +51,13 @@ On the repo's folder **"_client"**  (Not the submodule), download the files, and
 ```
 root/ .
       |_ index.html
-      |_ static/.  
+      |_ static/
          |_ config.json 
          |_ images/
          |   |_ bubbleicon.svg
-         |_ js   
+         |_ js/
          |   |_ index-xxxxxxx.js
-         |_ css
+         |_ css/
              |_ index-xxxxxxx.css
 
 ```
