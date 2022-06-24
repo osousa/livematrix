@@ -90,7 +90,7 @@ MATRIX_PASSWORD=password
 SERVER_PORT=8000
 ```
 
-```
+```diff
 - DO NOT use your personal account's password and username. CREATE a new one for this purpose only - 
 ```
 
