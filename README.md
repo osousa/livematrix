@@ -71,11 +71,12 @@ Follow the **submodule** named client@xxxx
 
 ## 🛰️ Server
 
-On the repo's folder **"_server"**  (Not the submodule), download the binary server and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder **"_server"**  (Not the submodule), download the binary "livechat" and the .env file; Edit the .env file and add your personal details. 
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
 ```python
+# MySQL/MariaDB credentials
 DATABASE_NAME=plexerbot
 DATABASE_USER=osousa
 DATABASE_PASSWORD=password
