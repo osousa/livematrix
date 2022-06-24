@@ -107,8 +107,9 @@ Follow the **submodule** named server@xxxx
 
 
 #### :bulb: Disclaimer 
-- The server uses an ORM from [wish](https://www.wish.com/) , that i wrote to learn Go (This is my first Go project). 
+- The server uses an ORM from [wish](https://www.wish.com/) , that i wrote to learn Go (This is my first Go project)
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
-- No unit tests? In my defence, i have very little spare time.
-- Use at your own risk.
+- No unit tests? In my defence, i have very little spare time
+- Encryption? Nope, you can implement it if you want to. It shouldn't be hard.
+- Use at your own risk
 
