@@ -30,7 +30,8 @@ The next best bet is for you to create a new Matrix.org account and all visitor'
 
 ##  :computer: client
 
-Svelte is a vite framework, so everything goes in one bundle, its fast and awesome to embed. No need for external libraries or big framework.js files.
+Built using Svelte, so everything goes in one nice bundle, its fast and awesome to embed. No need for external libraries or big framework.js files.
+Just import into your website's structure one JS and on CSS files. 
 
 To embed the widget is very straightforward, copy the following and paste on your index.html (or other):
 
