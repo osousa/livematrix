@@ -43,7 +43,7 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's "client" folder (Not the submodule), download the files, and put it inside folders relative to your index.html, like this:
+On the repo's "client" folder (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
 
 ```
 root/ .
