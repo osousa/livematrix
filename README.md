@@ -11,8 +11,11 @@ An *oversimplified* embedded live chat widget that allows your website's visitor
 
 ## 📺 Working demo 
 
+
 ### Visitor's first interaction, creates session:
 ![demo_1](https://github.com/livematrix/.github/blob/main/images/demo01.gif?raw=true)
+
+
 
 ### Chatting with visitor, through Element client:
 ![demo_2](https://github.com/livematrix/.github/blob/main/images/demo02.gif?raw=true)
