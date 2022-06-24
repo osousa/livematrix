@@ -10,6 +10,7 @@
             "host": "localhost", 
             "port": "8000"
         }
-    }
+    }, 
+    "greetings": "Hello there, thanks for reaching out, i'll answer you asap"
 }
 
