@@ -91,7 +91,7 @@ MATRIX_SERVER=matrix.org
 MATRIX_USERNAME=@livematrix:matrix.org
 MATRIX_PASSWORD=password
 
-# Leave empty if you want it to connect
+# Leave empty if you want it to bind
 # to every available interfaces. 
 SERVER_IFACE="127.0.0.1"
 SERVER_PORT=8000
