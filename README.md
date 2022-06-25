@@ -102,8 +102,8 @@ SERVER_PORT=8000
 🔥 Just fire up the server and you're done. Your live chat is working:
 
 ```
-$ chmod 755 livematrix
-$ ./livematrix &
+$ chmod 755 livechat
+$ ./livechat &
 ```
 
 #### ❔ 
