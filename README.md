@@ -1,12 +1,10 @@
 # livematrix
-Embedded live chat integration for your website, using matrix. 
-
 Chat with your website's visitors, using your Matrix client of choice.
 
 
 # 📌 What is livematrix?
 
-An **oversimplified** embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
+An **oversimplified**, easy to implement, embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
 
 
 ## 📺 Working demo 
