@@ -12,12 +12,14 @@ An **oversimplified**, easy to implement, embedded live chat widget that allows 
 
 ### Visitor's first interaction, creates session:
 (Wait for the GIF to load...)
+
 ![demo_1](https://github.com/livematrix/.github/blob/main/images/demo01.gif?raw=true)
 
 
 
 ### Chatting with visitor, through Element client:
 (Wait for the GIF to load...)
+
 ![demo_2](https://github.com/livematrix/.github/blob/main/images/demo02.gif?raw=true)
 
 
