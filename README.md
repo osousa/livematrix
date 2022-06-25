@@ -119,5 +119,6 @@ Follow the **submodule** named server@xxxx
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
 - No unit tests? In my defence, i have very little spare time
 - Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
-    - Use TLS and encryption. Why?  [browser] <---> [your_server] <---> [matrix]
+    - Use TLS and encryption. Why?  
+        - [browser] <---> [your_server] <---> [matrix]
 
