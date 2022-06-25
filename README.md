@@ -1,7 +1,7 @@
 # livematrix
 Embedded live chat integration for your website, using matrix. 
 
-Live chat with your website's visitors, using your Matrix client to communicate.
+Chat with your website's visitors, using your Matrix client of choice.
 
 
 # 📌 What is livematrix?
