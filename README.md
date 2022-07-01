@@ -1,7 +1,7 @@
 # livematrix
 Chat with your website's visitors, using your Matrix client of choice.
 
-If you need help, you can ask here: #livematrix:matrix.org
+If you need help, you can ask here: **#livematrix:matrix.org**
 
 
 # 📌 What is livematrix?
