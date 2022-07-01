@@ -112,12 +112,14 @@ $ ./livechat &
 If you do not want to use the compiled binary "livechat" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
+#### :heavy_check_mark: Todo
+- [ ] Add reCaptcha V3 
 
 
 #### :bulb: Disclaimer 
 - The server uses an ORM from [wish](https://www.wish.com/) , that i wrote to learn Go (This is my first Go project)
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
-- No unit tests? Skipping this as i shouldn't. Next, adding tests!
+- No unit tests? Skipping this as i shouldn't. Next, adding tests.
 - Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
     - Use TLS and encryption. Why?  
         - [browser] <---> [your_server] <---> [matrix]
