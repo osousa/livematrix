@@ -75,7 +75,7 @@ Follow the **submodule** named client@xxxx
 
 ## 🛰️ Server
 
-On the repo's folder **"_server"**  (Not the submodule), download the binary "livechat" and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder **"_server"**  (Not the submodule), download the binary "livematrix" and the .env file; Edit the .env file and add your personal details. 
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
@@ -106,12 +106,12 @@ SERVER_PORT=8000
 🔥 Just fire up the server and you're done. Your live chat is working:
 
 ```
-$ chmod 755 livechat
-$ ./livechat &
+$ chmod 755 livematrix
+$ ./livematrix &
 ```
 
 #### ❔ 
-If you do not want to use the compiled binary "livechat" you can compile your own. 
+If you do not want to use the compiled binary "livematrix" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
 #### :heavy_check_mark: Todo
