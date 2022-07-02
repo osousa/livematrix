@@ -119,7 +119,7 @@ Follow the **submodule** named server@xxxx
 
 
 #### :bulb: Disclaimer 
-- The server uses an ORM from [wish](https://www.wish.com/) , that i wrote to learn Go (This is my first Go project)
+- The server uses an ORM written by me to minimize imports.
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
 - No unit tests? Skipping this as i shouldn't. Next, adding tests.
 - Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
