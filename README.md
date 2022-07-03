@@ -116,6 +116,7 @@ Follow the **submodule** named server@xxxx
 
 #### :heavy_check_mark: Todo
 - [ ] Add reCaptcha V3 
+- [ ] Allow for chat history to be fetched
 
 
 #### :bulb: Disclaimer 
