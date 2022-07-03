@@ -96,6 +96,7 @@ MATRIX_USERNAME=@ousername:privex.io
 MATRIX_PASSWORD=password
 
 # Time to wait until next login (in days)
+# Defautl: Access Token is kept for 7 days
 MATRIX_TIMEOUT=7
 
 # Leave empty if you want it to bind
