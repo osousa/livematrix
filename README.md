@@ -82,16 +82,21 @@ You must create a Matrix user specifically to mediate conversations with your vi
 ```python
 # MySQL/MariaDB credentials
 DATABASE_NAME=livematrix
-DATABASE_USER=password
+DATABASE_USER=username
 DATABASE_PASSWORD=password
+DATABASE_IPADDR="127.0.0.1"
+DATABASE_PORT="3306"
 
 # Your personal Matrix.org account
-MATRIX_RECIPIENT=@osousa:matrix.org
+MATRIX_RECIPIENT=@username:matrix.org
 
 # Account used ONLY for mediation
-MATRIX_SERVER=matrix.org
-MATRIX_USERNAME=@livematrix:matrix.org
+MATRIX_SERVER=matrix.io
+MATRIX_USERNAME=@ousername:privex.io
 MATRIX_PASSWORD=password
+
+# Time to wait until next login (in days)
+MATRIX_TIMEOUT=7
 
 # Leave empty if you want it to bind
 # to every available interfaces. 
