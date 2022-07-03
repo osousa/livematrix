@@ -1,23 +1,27 @@
 # livematrix
-Embedded live chat integration for your website, using matrix. 
+Chat with your website's visitors, using your Matrix client of choice.
 
-Live chat with your website's visitors, using your Matrix client to communicate.
+If you need help, you can ask here: **#livematrix:matrix.org**
 
 
-# 📌 What is livechat?
+# 📌 What is livematrix?
 
-An *oversimplified* embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
+An **oversimplified**, easy to implement, embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
 
 
 ## 📺 Working demo 
 
 
 ### Visitor's first interaction, creates session:
+(Wait for the GIF to load...)
+
 ![demo_1](https://github.com/livematrix/.github/blob/main/images/demo01.gif?raw=true)
 
 
 
 ### Chatting with visitor, through Element client:
+(Wait for the GIF to load...)
+
 ![demo_2](https://github.com/livematrix/.github/blob/main/images/demo02.gif?raw=true)
 
 
@@ -71,7 +75,7 @@ Follow the **submodule** named client@xxxx
 
 ## 🛰️ Server
 
-On the repo's folder **"_server"**  (Not the submodule), download the binary "livechat" and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder **"_server"**  (Not the submodule), download the binary "livematrix" and the .env file; Edit the .env file and add your personal details. 
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
@@ -89,7 +93,7 @@ MATRIX_SERVER=matrix.org
 MATRIX_USERNAME=@livematrix:matrix.org
 MATRIX_PASSWORD=password
 
-# Leave empty if you want it to connect
+# Leave empty if you want it to bind
 # to every available interfaces. 
 SERVER_IFACE="127.0.0.1"
 SERVER_PORT=8000
@@ -107,15 +111,18 @@ $ ./livematrix &
 ```
 
 #### ❔ 
-If you do not want to use the compiled binary "livechat" you can compile your own. 
+If you do not want to use the compiled binary "livematrix" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
+#### :heavy_check_mark: Todo
+- [ ] Add reCaptcha V3 
 
 
 #### :bulb: Disclaimer 
-- The server uses an ORM from [wish](https://www.wish.com/) , that i wrote to learn Go (This is my first Go project)
+- The server uses an ORM written by me to minimize imports.
 - Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
-- No unit tests? In my defence, i have very little spare time
+- No unit tests? Skipping this as i shouldn't. Next, adding tests.
 - Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
-    - Use TLS and encryption. Why?  [browser] <---> [your_server] <---> [matrix]
+    - Use TLS and encryption. Why?  
+        - [browser] <---> [your_server] <---> [matrix]
 
