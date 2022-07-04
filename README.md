@@ -119,7 +119,7 @@ or if you wish to suppress logs from terminal:
 
 ```
 $ chmod 755 livematrix
-$ ./livematrix &
+$ ./livematrix 2>/dev/null &
 ```
 
 git submodule update --init
