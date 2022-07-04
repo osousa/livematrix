@@ -115,6 +115,15 @@ SERVER_PORT=8000
 $ chmod 755 livematrix
 $ ./livematrix &
 ```
+or if you wish to suppress logs from terminal:
+
+```
+$ chmod 755 livematrix
+$ ./livematrix &
+```
+
+git submodule update --init
+
 
 #### ❔ 
 If you do not want to use the compiled binary "livematrix" you can compile your own. 
@@ -124,6 +133,11 @@ Follow the **submodule** named server@xxxx
 - [ ] Add reCaptcha V3 
 - [ ] Allow for chat history to be fetched
 
+
+If you wish to clone this repo, remember to sync submodules after cloning it with : 
+```
+git submodule update --init
+```
 
 #### :bulb: Disclaimer 
 - The server uses an ORM written by me to minimize imports.
