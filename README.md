@@ -91,7 +91,7 @@ DATABASE_PORT="3306"
 MATRIX_RECIPIENT=@username:matrix.org
 
 # Account used ONLY for mediation
-MATRIX_SERVER=matrix.io
+MATRIX_SERVER=matrix.privex.io
 MATRIX_USERNAME=@ousername:privex.io
 MATRIX_PASSWORD=password
 
