@@ -8,6 +8,18 @@ If you need help, you can ask here: **#livematrix:matrix.org**
 
 An **oversimplified**, easy to implement, embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
 
+#### :heavy_check_mark: Todo
+- [ ] Add reCaptcha V3 or hcaptcha
+- [ ] Allow for chat history to be fetched
+- [ ] OLM encryption (not e2ee, but close if you host this yourself)
+
+If you wish to clone this repo, remember to sync submodules after cloning it with : 
+```
+git submodule update --init
+```
+A quick note about encrytion being implemented: If you host the server on a VPS of your own, and use TLS on your website, it should enable for a fairly robust private conversation with your visitors:
+
+[Browser] <---TLS---> [livematrix] <---e2ee---> [Matrix homeserver]  
 
 ## 📺 Working demo 
 
@@ -122,22 +134,12 @@ $ chmod 755 livematrix
 $ ./livematrix 2>/dev/null &
 ```
 
-git submodule update --init
-
 
 #### ❔ 
 If you do not want to use the compiled binary "livematrix" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
-#### :heavy_check_mark: Todo
-- [ ] Add reCaptcha V3 
-- [ ] Allow for chat history to be fetched
 
-
-If you wish to clone this repo, remember to sync submodules after cloning it with : 
-```
-git submodule update --init
-```
 
 #### :bulb: Disclaimer 
 - The server uses an ORM written by me to minimize imports.
