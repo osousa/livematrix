@@ -62,7 +62,7 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's folder **"_client"**  (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
+On the repo's folder [**_client**](https://github.com/osousa/livematrix/tree/main/_client)  (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
 
 ```
 root/ .
@@ -87,7 +87,7 @@ Follow the **submodule** named client@xxxx
 
 ## 🛰️ Server
 
-On the repo's folder **"_server"**  (Not the submodule), download the binary "livematrix" and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder  [**_server**](https://github.com/osousa/livematrix/tree/main/_server)  (Not the submodule), download the binary "livematrix" (Only 2.1MB, small for Go standards) and the .env file; Edit the .env file and add your personal details. 
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
@@ -142,10 +142,9 @@ Follow the **submodule** named server@xxxx
 
 
 #### :bulb: Disclaimer 
-- The server uses an ORM written by me to minimize imports.
-- Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
+- The server uses an ORM written by me to minimize imports (Should avoid SQLi).
 - No unit tests? Skipping this as i shouldn't. Next, adding tests.
-- Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
+- Encryption? Nope (Currently implementing it), you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
     - Use TLS and encryption. Why?  
         - [browser] <---> [your_server] <---> [matrix]
 
