@@ -40,9 +40,9 @@ A quick note about encrytion being implemented: If you host the server on a VPS 
 
 ## 🛠️ How does it work? 
 
-There would be many ways of doing a live chat, for example, we could allow each visitor to create a Matrix account, but people might not want to go through that. You could also use your own homeserver and [allow guests](https://spec.matrix.org/latest/client-server-api/#guest-access) . Why your own? Because most homeservers disallow guests. 
+There would be many ways of doing a live chat, for example, we could create a Matrix account for each visitor using an SDK that allows this on the browser. You could also use your own homeserver and [allow guests](https://spec.matrix.org/latest/client-server-api/#guest-access) . Why your own? Because most homeservers disallow guests. 
 
-The next best bet is for you to create a new Matrix account and all visitor's chats will be mediated by it. Each new conversation is a new room. When a visitor starts a chat he/she needs to introduce their name, surname and email. If Melissa Brandon starts a chat, you'll receive an invitation on your personal account to join a room of the name `#Melissa_Brandon4212353:Matrix.org`
+The next best bet, and subjectively less cumbersome, is for you to create a new Matrix account and all visitor's chats will be mediated by it. Each new conversation is a new room. When a visitor starts a chat he/she needs to introduce their name, surname and email. If Melissa Brandon starts a chat, you'll receive an invitation on your personal account to join a room of the name `#Melissa_Brandon4212353:Matrix.org`
 
 
 # 📗 How to use
