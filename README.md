@@ -54,7 +54,7 @@ The next best bet, and subjectively less cumbersome, is for you to create a new 
 ##  :computer: client
 
 Built using Svelte, so everything goes in one nice bundle, its fast and awesome to embed. No need for external libraries or big framework.js files.
-Just import into your website's structure one JS and one CSS files. 
+Just import into your website's structure **one** JS and **one** CSS files. 
 
 To embed the widget is very straightforward, copy the following and paste on your index.html (or other):
 
@@ -92,6 +92,7 @@ Follow the **submodule** named client@xxxx
 ## 🛰️ Server
 
 On the repo's folder  [**_server**](https://github.com/osousa/livematrix/tree/main/_server)  (Not the submodule), download the binary "livematrix" (Only 2.1MB, small for Go standards) and the .env file; Edit the .env file and add your personal details. 
+You can download the same binary and .env file from [**here**](https://github.com/livematrix/server) on *Releases* if you don't wish to clone this repo.
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
