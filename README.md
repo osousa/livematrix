@@ -9,7 +9,7 @@ If you need help, you can ask here: **#livematrix:matrix.org**
 An **oversimplified**, easy to implement, embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
 
 #### :bust_in_silhouette: Why livematrix?
-There are other alternatives, but livematrix is intended for personal use, very lightweight and easy to install. You have a personal blog/website and really enjoy using Matrix? Well, give it a try :) 
+livematrix is intended for personal use, very lightweight, stripped down and easy to install. You have a personal blog/website and really enjoy using Matrix? Well, give it a try :) 
 
 
 #### :heavy_check_mark: Todo
