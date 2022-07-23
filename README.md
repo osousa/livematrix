@@ -8,6 +8,22 @@ If you need help, you can ask here: **#livematrix:matrix.org**
 
 An **oversimplified**, easy to implement, embedded live chat widget that allows your website's visitors to send you messages seamlessly to your Matrix account.
 
+#### :bust_in_silhouette: Why livematrix?
+livematrix is intended for personal use, very lightweight, stripped down and easy to embed (Nothing to install or compile). You have a personal blog/website and really enjoy using Matrix? Well, give it a try :) 
+
+
+#### :heavy_check_mark: Todo
+- [ ] Add reCaptcha V3 or hcaptcha
+- [ ] Allow for chat history to be fetched
+- [ ] OLM encryption (not e2ee, but close if you host this yourself)
+
+If you wish to clone this repo, remember to sync submodules after cloning it with : 
+```
+git submodule update --init
+```
+A quick note about encrytion being implemented: If you host the server on a VPS of your own, and use TLS on your website, it should enable for a fairly robust private conversation with your visitors:
+
+[Browser] <---TLS---> [livematrix] <---e2ee---> [Matrix homeserver]  
 
 ## 📺 Working demo 
 
@@ -28,9 +44,9 @@ An **oversimplified**, easy to implement, embedded live chat widget that allows 
 
 ## 🛠️ How does it work? 
 
-There would be many ways of doing a live chat, for example, we could allow each visitor to create a Matrix account, but people might not want to go through that. You could also use your own homeserver and [allow guests](https://spec.matrix.org/latest/client-server-api/#guest-access) . Why your own? Because most homeservers disallow guests. 
+There would be many ways of doing a live chat, for example, we could create a Matrix account for each visitor using an SDK that allows this on the browser. You could also use your own homeserver and [allow guests](https://spec.matrix.org/latest/client-server-api/#guest-access) . Why your own? Because most homeservers disallow guests. 
 
-The next best bet is for you to create a new Matrix account and all visitor's chats will be mediated by it. Each new conversation is a new room. When a visitor starts a chat he/she needs to introduce their name, surname and email. If Melissa Brandon starts a chat, you'll receive an invitation on your personal account to join a room of the name `#Melissa_Brandon4212353:Matrix.org`
+The next best bet, and subjectively less cumbersome, is for you to create a new Matrix account and all visitor's chats will be mediated by it. Each new conversation is a new room. When a visitor starts a chat he/she needs to introduce their name, surname and email. If Melissa Brandon starts a chat, you'll receive an invitation on your personal account to join a room of the name `#Melissa_Brandon4212353:Matrix.org`
 
 
 # 📗 How to use
@@ -38,7 +54,7 @@ The next best bet is for you to create a new Matrix account and all visitor's ch
 ##  :computer: client
 
 Built using Svelte, so everything goes in one nice bundle, its fast and awesome to embed. No need for external libraries or big framework.js files.
-Just import into your website's structure one JS and one CSS files. 
+Just import into your website's structure **one** JS and **one** CSS files. 
 
 To embed the widget is very straightforward, copy the following and paste on your index.html (or other):
 
@@ -50,7 +66,7 @@ To embed the widget is very straightforward, copy the following and paste on you
 
 ### Configure paths on client-side
 
-On the repo's folder **"_client"**  (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
+On the repo's folder [**_client**](https://github.com/osousa/livematrix/tree/main/_client)  (Not the submodule), download the files, and put them inside folders relative to your index.html, like this:
 
 ```
 root/ .
@@ -75,7 +91,8 @@ Follow the **submodule** named client@xxxx
 
 ## 🛰️ Server
 
-On the repo's folder **"_server"**  (Not the submodule), download the binary "livematrix" and the .env file; Edit the .env file and add your personal details. 
+On the repo's folder  [**_server**](https://github.com/osousa/livematrix/tree/main/_server)  (Not the submodule), download the binary "livematrix" (Only 2.1MB, small for Go standards) and the .env file; Edit the .env file and add your personal details. 
+You can download the same binary and .env file from [**here**](https://github.com/livematrix/server) on *Releases* if you don't wish to clone this repo.
 
 You must create a Matrix user specifically to mediate conversations with your visitors. The .env looks like this:
 
@@ -122,28 +139,17 @@ $ chmod 755 livematrix
 $ ./livematrix 2>/dev/null &
 ```
 
-git submodule update --init
-
 
 #### ❔ 
 If you do not want to use the compiled binary "livematrix" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
-#### :heavy_check_mark: Todo
-- [ ] Add reCaptcha V3 
-- [ ] Allow for chat history to be fetched
 
-
-If you wish to clone this repo, remember to sync submodules after cloning it with : 
-```
-git submodule update --init
-```
 
 #### :bulb: Disclaimer 
-- The server uses an ORM written by me to minimize imports.
-- Its not performant, as uses Go's reflection a lot and i had no time to write tests, but it should avoid SQLi attacks 
+- The server uses an ORM written by me to minimize imports (Should avoid SQLi).
 - No unit tests? Skipping this as i shouldn't. Next, adding tests.
-- Encryption? Nope, you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
+- Encryption? Nope (Currently implementing it), you can implement it if you want to. It shouldn't be hard. See [Mautrix](https://github.com/mautrix/go):
     - Use TLS and encryption. Why?  
         - [browser] <---> [your_server] <---> [matrix]
 
