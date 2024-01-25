@@ -144,6 +144,10 @@ $ ./livematrix 2>/dev/null &
 If you do not want to use the compiled binary "livematrix" you can compile your own. 
 Follow the **submodule** named server@xxxx
 
+#### ⚙️
+If you're having difficulties configuring the livematrix on your side, remember that you probably need a nginx proxy that upstreams requests to livematrix
+Here is a working example that uses letsencrypt and docker containers to launch a website and livematrix separately, and nginx deals with traffic routing:
+https://github.com/osousa/livematrix/issues/3#issuecomment-1910005841
 
 
 #### :bulb: Disclaimer 
